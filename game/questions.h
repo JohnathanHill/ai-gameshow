@@ -1,18 +1,22 @@
 #ifndef QUESTIONS_H
 #define QUESTIONS_H
-#include<fstream>
-#include<iostream>
-#include<vector>
-
-using namespace std;
 
 class questions{
 
 	private:
-		vector<string> qVect;
+		vector<pair<string, string>> qaVect; //stores both question and answer
+		string ques, answ;
+		ifstream myfile;
+		
 	public:
-		void readToVector();
-		void printVector();
+		vector<string> questionVect;
+		vector<string> answerVector;
+
+		void keyVector(); 
+		void printKeyVector();
+		void questionBank();
+		void answerBank();
+
 
 
 

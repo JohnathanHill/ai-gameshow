@@ -1,16 +1,22 @@
 #ifndef QUESTIONS_H
 #define QUESTIONS_H
+#include<fstream>
+#include<iostream>
+#include<vector>
+#include<string>
+
+
 
 class questions{
 
 	private:
-		vector<pair<string, string>> qaVect; //stores both question and answer
-		string ques, answ;
-		ifstream myfile;
+		std::vector<std::pair<std::string, std::string>> qaVect; //stores both question and answer
+		std::string ques, answ;
+		std::ifstream myfile;
 		
 	public:
-		vector<string> questionVect;
-		vector<string> answerVector;
+		std::vector<std::string> questionVect;
+		std::vector<std::string> answerVector;
 
 		void keyVector(); 
 		void printKeyVector();

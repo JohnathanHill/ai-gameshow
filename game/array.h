@@ -1,15 +1,24 @@
 #ifndef ARRAY_H
 #define ARRAY_H
+#include<string>
 
-template<typename T>
+#include<iostream>
+
+
+struct stage{
+	std::string que;
+	std::string a;
+	bool check;
+};
+	
 class level{
 
 	private:
 		int sizeArray;
-
+		level *data;
 	public:
 		level();
-		level(vector<string>, vector<string>, int); //fix this function
+		level(stage, int); //fix this function
 		~level();
 
 

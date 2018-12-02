@@ -8,12 +8,22 @@
 #include<random>
 #include<chrono>
 #include<iterator>
-
+//asd
 struct Agent {
 	int correct[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	//string 2darray to remember wrong answers ==> wrong[question][wrong answers]
+	//string array to remember right answer
+	//randomize the questions per game
+	//
 };
+/*agent asasdfas class mdp {
+	value iteration (prob reward, smething something)
+	policy iteration (prob reward)
+	q-learning
+	approx q learning
 
-
+}
+*/
 struct gameStage {
 	std::string question;
 	std::string a[10];
@@ -71,10 +81,15 @@ int main() {
 				//SetConsoleTextAttribute(hConsole, 4); //colors what agent picks red
 				std::cout << answerB[j] << std::endl;
 			}
+			else if (answerB[j] == que[i].checkAnswer){
+				SetConsoleTextAttribute(hConsole, 14); //highlights correct answer
+				std::cout << answerB[j] << std::endl;
+			}
+			
 			else
 			{
 			
-				//SetConsoleTextAttribute(hConsole, 15);
+				SetConsoleTextAttribute(hConsole, 15);
 				std::cout << answerB[j] << std::endl;
 			}
 		}
@@ -94,9 +109,12 @@ int main() {
 				SetConsoleTextAttribute(hConsole, 4); //colors what agent picks red
 				std::cout << answerB[j] << std::endl;
 			}
+			else if (answerB[j] == que[i].checkAnswer){
+				SetConsoleTextAttribute(hConsole, 14); //highlights correct answer
+				std::cout << answerB[j] << std::endl;
+			}
 			else
 			{
-
 				SetConsoleTextAttribute(hConsole, 15);
 				std::cout << answerB[j] << std::endl;
 			}
@@ -106,6 +124,9 @@ int main() {
 		system("CLS");
 		if (answerB[Bob.correct[i]] == que[i].checkAnswer) {
 			//code here
+			std::cout << "You Won" << std::endl;
+			Sleep(1000);
+			system("CLS");
 			i++;
 
 		}

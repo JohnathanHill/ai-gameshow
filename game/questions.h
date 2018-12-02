@@ -4,24 +4,29 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include "array.h"
 
-
-
-class questions{
+class questions {
 
 	private:
-		std::vector<std::pair<std::string, std::string>> qaVect; //stores both question and answer
+		std::vector<std::pair<std::string, std::string> > qaVect; //stores both question and answer
 		std::string ques, answ;
 		std::ifstream myfile;
+		int increment = 0;
+		int aIncrement = 0;
 		
 	public:
-		std::vector<std::string> questionVect;
-		std::vector<std::string> answerVector;
+		std::vector<std::string> questionVect; //question vector
+		std::vector<std::string> answerVector; //answer vector
 
 		void keyVector(); 
 		void printKeyVector();
 		void questionBank();
 		void answerBank();
+		std::string getQuestion(); //return questions
+		std::string getAllAnswer(); //return all 10 answers
+		std::string getRightAnswer(std::string);
+
 
 
 

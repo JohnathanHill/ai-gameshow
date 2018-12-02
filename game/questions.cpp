@@ -2,7 +2,7 @@
 
 void questions::keyVector(){ //stores questions and answer into key/value vector
 	int i = 0;
-	myfile.open("C:/Users/leeni/Documents/CSCI Classes/CSCI 166/Project/gameShow/gameShow/questionsAnswers.txt");
+	myfile.open("questionsAnswers.txt");
 	if (myfile.is_open()) {
 		while (getline(myfile, ques) && i < 10) { //stores all questions/answers into vector
 			getline(myfile, answ);
@@ -26,7 +26,7 @@ void questions::printKeyVector() { //prints key/value vector pair
 
 void questions::questionBank(){//stores questions only into vector
 	int i = 0;
-	myfile.open("C:/Users/leeni/Documents/CSCI Classes/CSCI 166/Project/gameShow/gameShow/questionsAnswers.txt");
+	myfile.open("questionsAnswers.txt");
 	if (myfile.is_open()) {
 		while (getline(myfile, ques) && i < 10) { //stores all questions into vector
 			if (ques.find("Answer:")) {
@@ -44,11 +44,11 @@ void questions::questionBank(){//stores questions only into vector
 
 void questions::answerBank(){ //stores answers only into vector
 	int i = 0;
-	myfile.open("C:/Users/leeni/Documents/CSCI Classes/CSCI 166/Project/gameShow/gameShow/questionsAnswers.txt");
+	myfile.open("questionsAnswers.txt");
 	if (myfile.is_open()) {
 		while (getline(myfile, answ) && i < 10) { //stores all answers into vector
 			if (answ.find("Question:")) {
-				questionVect.push_back(answ);
+				answerVector.push_back(answ);
 				//cout << answ << endl;
 				i++;
 			}
@@ -59,4 +59,35 @@ void questions::answerBank(){ //stores answers only into vector
 	}
 	myfile.close();
 
+}
+
+std::string questions::getQuestion(){
+
+	std::string temp = questionVect[increment];
+	increment++;
+	if (increment >= 10) {
+		increment = 0;
+	}
+	return temp;
+}
+
+std::string questions::getAllAnswer(){
+
+	std::string temp = answerVector[aIncrement];
+	aIncrement++;
+	if (aIncrement >= 10) {
+		aIncrement = 0;
+	}
+	return temp;
+	
+
+}
+
+std::string questions::getRightAnswer(std::string key){
+	for (int i = 0; i < qaVect.size(); i++) {
+		if (key == qaVect[i].first) {
+			return qaVect[i].second;
+		}
+
+	}
 }

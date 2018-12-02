@@ -1,25 +1,22 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 #include<string>
-
 #include<iostream>
+#include<vector>
 
 
-struct stage{
-	std::string que;
-	std::string a;
-	bool check;
-};
-	
-class level{
+
+class levelarr{
 
 	private:
 		int sizeArray;
-		level *data;
+		levelarr *data;
+		std::vector<std::pair<std::string, std::string> > &qaVect;
+	
 	public:
-		level();
-		level(stage, int); //fix this function
-		~level();
+		levelarr();
+		levelarr(int); //fix this function
+		~levelarr();
 
 
 };

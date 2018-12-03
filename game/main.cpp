@@ -11,8 +11,12 @@
 
 
 struct Agent {
-	int correct[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int correct[10] = { 0,0,0,0,0,0,0,0, 0,0 };
+	string QA[100][2]; 
+	int currQuestion = 0;
 	int rewards = 1;
+	int wrongAnswers[100]; //index for wrong answer per question
+
 	//string 2darray to remember wrong answers ==> wrong[question][wrong answers]
 	//string array to remember right answer
 	//randomize the questions per game
@@ -54,6 +58,12 @@ int main() {
 			que[i].a[j] = q.getAllAnswer(); //stores all the answers
 		}
 	}
+
+	for (int i = 0; i < 10; i++) { //stores questions into QA 2Darray
+		Bob.QA[i][0] = que[i].question;
+	}
+
+
 	std::string answerB[10]; //stores answer bank into another array for shuffling
 	std::random_device rd;
 	std::mt19937 g(rd());
@@ -66,13 +76,94 @@ int main() {
 	//	std::cout << answerB[i] << std::endl;
 	//}
 	int i = 0; //counter
-	while(i < 10){ //loops thru the array of structs
+	while (i < 10) { //loops through the array of structs
 		//Sleep(1000);
 		int qtemp = i + 1; //used to output question number in console
-		std::cout << qtemp << ") " << que[i].question << "\n";
+		//SetConsoleTextAttribute(hConsole, 15);
+		//std::cout << qtemp << ") " << que[i].question << "\n";
+
+		//agent memory
+		int j = 0;
+		bool found = false;
+		do {
+			if (Bob.QA[j][0] == que[i].question) {
+				found = true;
+				if (Bob.QA[j][1] == "") { //if agent has no answer
+					SetConsoleTextAttribute(hConsole, 15);
+					std::cout << qtemp << ") " << que[i].question << "\n";
+					for (int k = 0; k < 10; k++) {
+						int temp = Bob.correct[i];
+
+						if ((que[i].checkAnswer == answerB[temp]) && (temp == k)) {
+							Bob.QA[j][1] = answerB[temp];
+							SetConsoleTextAttribute(hConsole, 10);
+							std::cout << answerB[k] << std::endl;
+							i++;
+						}
+						else if ((que[i].checkAnswer != answerB[temp]) && (temp == k)) {
+							SetConsoleTextAttribute(hConsole, 4);
+							std::cout << answerB[k] << std::endl;
+							Bob.correct[i]++;
+							i = 0;
+							k = 10;
+						}
+						else {
+							SetConsoleTextAttribute(hConsole, 15);
+							std::cout << answerB[k] << std::endl;
+						}
+					}
+					system("CLS");
+				}
+				else {
+					SetConsoleTextAttribute(hConsole, 15);
+					std::cout << qtemp << ") " << que[i].question << "\n";
+					for (int k = 0; k < 10; k++) {
+						if (answerB[k] == Bob.QA[j][1]) {
+							SetConsoleTextAttribute(hConsole, 10);
+							std::cout << answerB[k] << std::endl;
+						}
+						else {
+							SetConsoleTextAttribute(hConsole, 15);
+							std::cout << answerB[k] << std::endl;
+						}
+					}
+					i++;
+				}
+			}
+			//}
+			else {
+				j++;
+			}
+			
+		
+		} while ((j < 10) && (!found));
+			//if (Bob.QA[j][0] == que[i].question) {
+		Sleep(1000);
+		system("CLS");
+	}
+
+
+/*
+		//Agent memory
+		for (int k = 0; k < 100; k++) {
+			if (Bob.QA[k][0] == que[i].question) {
+				if (Bob.QA[k][1] == "") {
+					for (int p = 2; p < 100; p++) {
+						if (p < 12) {
+							if ((Bob.QA[k][p] == que[p - 2].checkAnswer)) {
+								Bob.QA[k][1] = answerB[p - 2];
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	*/
+/*
 		//std::cout << que[i].a[Bob.correct[i]] << "\n";
-		for (int j = 0; j < 10; j++) {
-			if (Bob.correct[i] == j && (answerB[Bob.correct[i]] == que[i].checkAnswer)) //if angent answers correctly
+		for (int j = 0; j <= 10; j++) {
+			if (Bob.QA[i][0] == que[j].question && (Bob.QA[i][j+1] == que[i].checkAnswer)) //if agent answers correctly
 			{
 				//SetConsoleTextAttribute(hConsole, 10); // colors what agent picks green
 				std::cout << answerB[j] << std::endl;
@@ -148,7 +239,7 @@ int main() {
 			std::cout << "win";
 		}
 	}
-
+*/
 	system("pause");
 	return 0;
 }

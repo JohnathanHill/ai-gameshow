@@ -39,7 +39,7 @@ struct gameStage {
 int main() {
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //handles console commands
-	int timer = 1500;
+	int timer = 300;
 	int points = 1;
 	Agent Bob;
 	questions q;
@@ -47,6 +47,7 @@ int main() {
 	//q.printKeyVector();
 	q.questionBank();   //sets up vector of questions
 	q.answerBank();		//sets up vector of answers
+	int questionsAnswer = 0;
 
 	gameStage *que = new gameStage[10];  //initilize array of structs
 
@@ -98,12 +99,16 @@ int main() {
 							Bob.QA[j][1] = answerB[temp];
 							SetConsoleTextAttribute(hConsole, 10);
 							std::cout << answerB[k] << std::endl;
+							questionsAnswer++;
+							Bob.rewards *= 2;
 							i++;
 						}
 						else if ((que[i].checkAnswer != answerB[temp]) && (temp == k)) {
 							SetConsoleTextAttribute(hConsole, 4);
 							std::cout << answerB[k] << std::endl;
 							Bob.correct[i]++;
+							Bob.rewards = 1;
+							questionsAnswer = 0;
 							i = 0;
 							k = 10;
 						}
@@ -111,10 +116,14 @@ int main() {
 							SetConsoleTextAttribute(hConsole, 15);
 							std::cout << answerB[k] << std::endl;
 						}
+
 					}
+					Sleep(timer);
+					
 					system("CLS");
 				}
-				else {
+				else { //agent remembers answer
+					Bob.rewards *= 2;
 					SetConsoleTextAttribute(hConsole, 15);
 					std::cout << qtemp << ") " << que[i].question << "\n";
 					for (int k = 0; k < 10; k++) {
@@ -126,23 +135,44 @@ int main() {
 							SetConsoleTextAttribute(hConsole, 15);
 							std::cout << answerB[k] << std::endl;
 						}
+
 					}
+					questionsAnswer++;
 					i++;
+					Sleep(timer);
 				}
 			}
 			//}
 			else {
 				j++;
 			}
+
 			
-		
 		} while ((j < 10) && (!found));
 			//if (Bob.QA[j][0] == que[i].question) {
-		Sleep(1000);
+		
+		system("CLS");
+		if (i >= 10) {
+			int w = 0;
+			for (int v = 0; v < 100; v++) {
+				system("CLS");
+				w = v % 10;
+				SetConsoleTextAttribute(hConsole, w);
+				std::cout << "You won" << std::endl;
+				std::cout << "Rewards:" << Bob.rewards << std::endl;
+				Sleep(350);
+			}
+			
+		}
+		else {
+			SetConsoleTextAttribute(hConsole, 15);
+			std::cout << "Rewards:" << Bob.rewards << std::endl;
+
+		}
+		Sleep(timer);
 		system("CLS");
 	}
-
-
+	
 /*
 		//Agent memory
 		for (int k = 0; k < 100; k++) {

@@ -4,7 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#include "array.h"
+
 
 class questions {
 
